@@ -1,5 +1,105 @@
-<h1>Yut-nori</h1>
-<ul>
-  <li><a href="yut_throw.html">Beginner</a></li>
-  <li><a href="yut_throw_weighted.html">Advanced (Back Do)</a></li>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Yut-nori</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* 🌅 설날 느낌 배경 */
+      background: linear-gradient(
+        180deg,
+        #fff6e5 0%,
+        #fde2b7 100%
+      );
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(40px, 9vw, 72px);
+      margin-bottom: 40px;
+      letter-spacing: 0.5px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin: 28px 0;
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+
+      font-size: clamp(22px, 5.5vw, 34px);
+      font-weight: 700;
+      text-decoration: none;
+
+      color: #3b2f1c;
+      background: #fff;
+
+      border: 3px solid #3b2f1c;
+      border-radius: 14px;
+
+      padding: 16px 32px;
+
+      box-shadow: 0 4px 0 #3b2f1c;
+    }
+      
+    a:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #3b2f1c;
+    }
+
+    /* 🪵 윷 아이콘 */
+    .yut-icon {
+      width: 28px;
+      height: auto;
+    }
+
+a:hover { transform: translateY(-1px); }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Yut-nori <span style="font-weight:400;">(윷놀이)</span></h1>
+
+
+    <ul>
+      <li>
+        <a href="yut_throw.html">
+          <img src="yut_icon.svg" alt="yut" class="yut-icon">
+          Beginner (초급)
+        </a>
+      </li>
+
+      <li>
+        <a href="yut_throw_weighted.html">
+          <img src="yut_icon.svg" alt="yut" class="yut-icon">
+          Advanced (Back Do · 고급)
+        </a>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
+
