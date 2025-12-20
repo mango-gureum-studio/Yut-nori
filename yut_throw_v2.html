@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>윷 던지기</title>
+<style>
+  body { font-family: system-ui, sans-serif; text-align:center; padding-top:40px; }
+  .wrap { display:flex; justify-content:center; gap:20px; margin-bottom:24px; }
+  .yut { width: 14vw;
+  max-width: 90px;
+  height: auto; }
+  .shake { animation: shake 0.08s linear infinite; }
+  @keyframes shake {
+    0% { transform: rotate(-6deg) translateY(0); }
+    50% { transform: rotate(6deg) translateY(-6px); }
+    100% { transform: rotate(-6deg) translateY(0); }
+  }
+  button { padding:10px 22px; font-size:16px; }
+  .result { margin-top:18px; font-size:28px; font-weight:800; }
+</style>
+</head>
+<body>
+
+<h1>윷 던지기</h1>
+
+<div class="wrap">
+  <img class="yut" src="yut_vertical_back_fuk.svg">
+  <img class="yut" src="yut_vertical_back_fuk.svg">
+  <img class="yut" src="yut_vertical_back_fuk.svg">
+  <img class="yut" src="yut_vertical_back_fuk.svg">
+</div>
+
+<button onclick="throwYut()">던지기</button>
+<div class="result" id="result">—</div>
+
+<script>
+const BACK  = "yut_vertical_back_fuk.svg";    // 등(복)
+const BELLY = "yut_vertical_front_plain.svg"; // 배
+
+const resultMap = {
+  0: "모 (Mo)",
+  1: "도 (Do)",
+  2: "개 (Gae)",
+  3: "걸 (Geol)",
+  4: "윷 (Yut)"
+};
+
+let audioCtx = null;
+
+function playSound() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  audioCtx.resume(); // 🔑 이 줄이 핵심
+
+  const now = audioCtx.currentTime;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  osc.type = "triangle";
+  osc.frequency.setValueAtTime(260, now);
+  gain.gain.setValueAtTime(0.3, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start(now);
+  osc.stop(now + 0.15);
+}
+
+function throwYut() {
+  const yuts = document.querySelectorAll(".yut");
+  yuts.forEach(y => y.classList.add("shake"));
+  document.getElementById("result").textContent = "…";
+
+  playSound();
+
+  setTimeout(() => {
+    let bellyCount = 0;
+    yuts.forEach(y => {
+      const isBelly = Math.random() < 0.5;
+      y.src = isBelly ? BELLY : BACK;
+      if (isBelly) bellyCount++;
+      y.classList.remove("shake");
+    });
+    document.getElementById("result").textContent = resultMap[bellyCount];
+  }, 800);
+}
+</script>
+
+</body>
+</html>
